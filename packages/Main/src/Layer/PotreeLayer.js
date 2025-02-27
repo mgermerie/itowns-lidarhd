@@ -73,6 +73,23 @@ class PotreeLayer extends PointCloudLayer {
             return this.root.loadOctree().then(resolve);
         });
     }
+
+    setRootBbox(min, max) {
+        this.root.voxelOBB.box3D.min.set(...min);
+        this.root.voxelOBB.box3D.max.set(...max);
+        this.root.voxelOBB.matrixWorldInverse = this.root.voxelOBB.matrixWorld.clone().invert();
+
+        this.root.clampOBB.copy(this.root.voxelOBB);
+        const clampBBox = this.root.clampOBB.box3D;
+        if (clampBBox.min.z < this.zmax) {
+            clampBBox.max.z = Math.min(clampBBox.max.z, this.zmax);
+        }
+        if (clampBBox.max.z > this.zmin) {
+            clampBBox.min.z = Math.max(clampBBox.min.z, this.zmin);
+        }
+
+        this.root.clampOBB.matrixWorldInverse = this.root.voxelOBB.matrixWorldInverse;
+    }
 }
 
 export default PotreeLayer;
