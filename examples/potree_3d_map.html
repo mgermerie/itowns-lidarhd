@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
     <head>
         <title>Point Cloud on globe</title>
@@ -45,6 +44,7 @@
     <body>
         <div id="viewerDiv"></div>
         <div id="info"></div>
+
         <script type="module">
 
             import lil from 'lil';
@@ -77,11 +77,30 @@
 
             view.controls.minDistance = 50;
 
+            itowns.Fetcher.json('./layers/JSONLayers/IGN_MNT_HIGHRES.json').then(function _(config) {
+                config.source = new itowns.WMTSSource(config.source);
+                var layer = new itowns.ElevationLayer(config.id, config);
+                view.addLayer(layer);
+            });
+            itowns.Fetcher.json('./layers/JSONLayers/Ortho.json').then(function _(config) {
+                config.source = new itowns.WMTSSource(config.source);
+                var layer = new itowns.ColorLayer(config.id, config);
+                view.addLayer(layer);
+            });
+
+            const file = 'eglise_saint_blaise_arles.js';
+            const url = 'https://raw.githubusercontent.com/gmaillet/dataset/master/';
+            const crs = view.referenceCrs;
+
+            // const url = 'https://viz.lib.vt.edu/thessaloniki/resources/pointclouds/thessaloniki';
+            // const file = 'cloud.js';
+            // const crs = 'EPSG:4326';
+
             // Configure Point Cloud layer
             const potreeSource = new itowns.PotreeSource({
-                    file: 'eglise_saint_blaise_arles.js',
-                    url: 'https://raw.githubusercontent.com/gmaillet/dataset/master/',
-                    crs: view.referenceCrs,
+                    file,
+                    url,
+                    crs,
                 });
 
             potreeLayer = new itowns.PotreeLayer('eglise_saint_blaise_arles', {
@@ -102,16 +121,7 @@
 
             itowns.View.prototype.addLayer.call(view, potreeLayer).then(onLayerReady);
 
-            itowns.Fetcher.json('./layers/JSONLayers/IGN_MNT_HIGHRES.json').then(function _(config) {
-                config.source = new itowns.WMTSSource(config.source);
-                var layer = new itowns.ElevationLayer(config.id, config);
-                view.addLayer(layer);
-            });
-            itowns.Fetcher.json('./layers/JSONLayers/Ortho.json').then(function _(config) {
-                config.source = new itowns.WMTSSource(config.source);
-                var layer = new itowns.ColorLayer(config.id, config);
-                view.addLayer(layer);
-            });
+
             window.view = view;
             window.itowns = itowns;
             window.THREE = THREE;
