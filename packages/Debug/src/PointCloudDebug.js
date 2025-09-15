@@ -113,7 +113,8 @@ function debugIdUpdate(context, layer, node) {
                 node.obj.tightboxHelper = tightboxHelper;
                 helper.add(tightboxHelper);
                 tightboxHelper.updateMatrixWorld(true);
-            } else {
+            } else if (node.promise) {
+                // TODO rethink architecture of node.obj/node.promise ?
                 node.promise.then(() => {
                     if (node.obj) {
                         tightboxHelper.geometry.attributes.position.array = getCornerPosition(node.obj.geometry.boundingBox);
