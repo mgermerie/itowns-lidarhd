@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 import OBB from 'Renderer/OBB';
+import proj4 from 'proj4';
+import { OrientationUtils, Coordinates } from '@itowns/geographic';
 
 const size = new THREE.Vector3();
 const position = new THREE.Vector3();
@@ -92,20 +94,50 @@ class PointCloudNode extends THREE.EventDispatcher {
         childNode.clampOBB.matrixWorldInverse = this.clampOBB.matrixWorldInverse;
     }
 
-    /**
-     * Compute the center of the bounding box in the local referential
-     * @returns {THREE.Vector3}
-     */
-    getCenter() {
+    // get the center of the node i.e. the center of the bounding box.
+    get center() {
+        let value;
+        if (value != undefined) { return value; }
         const centerBbox = new THREE.Vector3();
         this.voxelOBB.box3D.getCenter(centerBbox);
-        return centerBbox.applyMatrix4(this.clampOBB.matrixWorld);
+        value =  new Coordinates(this.layer.crs).setFromVector3(centerBbox.applyMatrix4(this.clampOBB.matrixWorld));
+        return value;
+    }
+
+    // the origin is the center of the bounding box projected on the z=O local plan, in the world referential.
+    get origin() {
+        let value;
+        if (value != undefined) { return value; }
+        const centerCrsIn = proj4(this.layer.crs, this.layer.source.crs).forward(this.center);
+        value =  new Coordinates(this.layer.crs).setFromArray(proj4(this.layer.source.crs, this.layer.crs).forward([centerCrsIn.x, centerCrsIn.y, 0]));
+        return value;
+    }
+
+    /**
+     * get the rotation between the locam referentiel and the geocentrique one (if applyable).
+     *
+     * @returns {THREE.Quaternion}
+     */
+    getLocalRotation() {
+        const isGeocentric = proj4.defs(this.layer.crs).projName === 'geocent';
+        let rotation = new THREE.Quaternion();
+        if (isGeocentric) {
+            rotation = OrientationUtils.quaternionFromCRSToCRS(this.layer.crs, this.layer.source.crs)(this.origin);
+        }
+        return rotation;
     }
 
     load() {
-        const origin = this.getCenter();
+        const rotation = this.getLocalRotation();
         return this.layer.source.fetcher(this.url, this.layer.source.networkOptions)
-            .then(file => this.layer.source.parse(file, { out: { ...this.layer, origin }, in: this.layer.source }));
+            .then(file => this.layer.source.parse(file, {
+                in: this.layer.source,
+                out: {
+                    ...this.layer,
+                    origin: this.origin,
+                    rotation,
+                },
+            }));
     }
 
     findCommonAncestor(node) {
