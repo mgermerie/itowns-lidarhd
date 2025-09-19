@@ -42,7 +42,7 @@ jobs:
 
       - name: publish itowns@latest npm package
         run: |
-          npm version minor -m \"release v%s\"
+          npm run bump
           git push
           npm run publish-latest
         env:
