@@ -55,6 +55,7 @@ jobs:
 
   # Publish NPM package
   publish:
+    need: [build]
     name: Publish NPM package
     if: ${{ github.ref == 'refs/heads/master' }}
     runs-on: ubuntu-latest
