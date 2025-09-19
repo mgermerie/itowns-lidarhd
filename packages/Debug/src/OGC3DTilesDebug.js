@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-unresolved
 import { DebugTilesPlugin } from '3d-tiles-renderer/plugins';
 
-import { PNTS_MODE, PNTS_SHAPE, PNTS_SIZE_MODE } from 'itowns';
+import { PNTS_MODE, PNTS_SHAPE, PNTS_SIZE_MODE } from 'itowns-lidarhd';
 import GeometryDebug from './GeometryDebug';
 
 export default function createOGC3DTilesDebugUI(datDebugTool, view, _3dTileslayer) {

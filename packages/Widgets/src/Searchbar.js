@@ -1,4 +1,4 @@
-import { Fetcher } from 'itowns';
+import { Fetcher } from 'itowns-lidarhd';
 import Widget from './Widget';
 
 

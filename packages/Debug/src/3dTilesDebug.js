@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { View, GeometryLayer, C3DTilesBoundingVolumeTypes, PNTS_MODE, PNTS_SHAPE, PNTS_SIZE_MODE } from 'itowns';
+import { View, GeometryLayer, C3DTilesBoundingVolumeTypes, PNTS_MODE, PNTS_SHAPE, PNTS_SIZE_MODE } from 'itowns-lidarhd';
 import GeometryDebug from './GeometryDebug';
 
 const bboxMesh = new THREE.Mesh();

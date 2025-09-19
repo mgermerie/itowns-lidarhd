@@ -1,4 +1,4 @@
-import { VIEW_EVENTS } from 'itowns';
+import { VIEW_EVENTS } from 'itowns-lidarhd';
 import Widget from './Widget';
 
 

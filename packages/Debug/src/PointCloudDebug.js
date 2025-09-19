@@ -1,4 +1,4 @@
-import { PNTS_MODE, PNTS_SHAPE, PNTS_SIZE_MODE } from 'itowns';
+import { PNTS_MODE, PNTS_SHAPE, PNTS_SIZE_MODE } from 'itowns-lidarhd';
 
 const folderName = 'Styling';
 

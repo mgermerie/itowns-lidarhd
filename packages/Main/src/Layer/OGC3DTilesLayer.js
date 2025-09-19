@@ -133,7 +133,7 @@ export function enableKtx2Loader(path, renderer) {
  * module.
  *
  * @example
- * import * as itowns from 'itowns';
+ * import * as itowns from 'itowns-lidarhd';
  * import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
  *
  * // Enable support of EXT_meshopt_compression
