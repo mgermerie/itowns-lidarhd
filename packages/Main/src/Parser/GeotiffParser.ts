@@ -14,7 +14,7 @@ import {
 } from 'three';
 
 import type { TextureDataType } from 'three';
-import type { Extent } from '@itowns/geographic';
+import type { Extent } from '@itowns-lidarhd/geographic';
 import type {
     TypedArrayWithDimensions,
     Pool,

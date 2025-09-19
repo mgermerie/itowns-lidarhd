@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { CRS, Extent } from '@itowns/geographic';
+import { CRS, Extent } from '@itowns-lidarhd/geographic';
 import * as GeoTIFF from 'geotiff';
 import GeotiffParser, { selectDataType, GeotiffNode } from 'Parser/GeotiffParser';
 
