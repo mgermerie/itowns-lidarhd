@@ -75,6 +75,7 @@ class Potree2Node extends PotreeNode {
             await this.loadOctree();
         }
 
+        const rotation = this.getLocalRotation();
         return this.layer.source.fetcher(this.url, this.networkOptions(this.byteOffset, this.byteSize))
             .then(file => this.layer.source.parser(file, {
                 in: {
@@ -84,7 +85,8 @@ class Potree2Node extends PotreeNode {
                 },
                 out: {
                     ...this.layer,
-                    origin: this.voxelOBB.box3D.min,
+                    origin: this.origin,
+                    rotation,
                 },
             }))
             .then((data) => {
