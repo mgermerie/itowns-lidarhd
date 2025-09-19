@@ -1,6 +1,6 @@
 import assert from 'assert';
 import WMSSource from 'Source/WMSSource';
-import { Extent } from '@itowns/geographic';
+import { Extent } from '@itowns-lidarhd/geographic';
 
 describe('WMSSource', function () {
     const paramsWMS = {

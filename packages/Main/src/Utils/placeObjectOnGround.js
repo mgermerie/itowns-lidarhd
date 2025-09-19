@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { Coordinates } from '@itowns/geographic';
+import { Coordinates } from '@itowns-lidarhd/geographic';
 import DEMUtils from 'Utils/DEMUtils';
 
 const temp = {

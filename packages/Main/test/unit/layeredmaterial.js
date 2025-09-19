@@ -3,7 +3,7 @@ import ColorLayer from 'Layer/ColorLayer';
 import TMSSource from 'Source/TMSSource';
 import { updateLayeredMaterialNodeImagery } from 'Process/LayeredMaterialNodeProcessing';
 import GlobeView from 'Core/Prefab/GlobeView';
-import { Coordinates } from '@itowns/geographic';
+import { Coordinates } from '@itowns-lidarhd/geographic';
 import TileMesh from 'Core/TileMesh';
 import * as THREE from 'three';
 import Tile from 'Core/Tile/Tile';

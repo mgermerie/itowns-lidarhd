@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import PointCloudLayer from 'Layer/PointCloudLayer';
 import PotreeNode from 'Core/PotreeNode';
-import { Extent } from '@itowns/geographic';
+import { Extent } from '@itowns-lidarhd/geographic';
 
 const bboxMesh = new THREE.Mesh();
 const box3 = new THREE.Box3();

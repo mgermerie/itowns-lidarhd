@@ -2,7 +2,7 @@ import { Matrix4 } from 'three';
 import assert from 'assert';
 import Layer from 'Layer/Layer';
 import FileSource from 'Source/FileSource';
-import { Extent } from '@itowns/geographic';
+import { Extent } from '@itowns-lidarhd/geographic';
 import sinon from 'sinon';
 import Fetcher from 'Provider/Fetcher';
 

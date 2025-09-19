@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import GeometryLayer from 'Layer/GeometryLayer';
-import { Coordinates, ellipsoidSizes, CoordStars } from '@itowns/geographic';
+import { Coordinates, ellipsoidSizes, CoordStars } from '@itowns-lidarhd/geographic';
 import Sky from './SkyShader';
 import skyFS from './Shaders/skyFS.glsl';
 import skyVS from './Shaders/skyVS.glsl';

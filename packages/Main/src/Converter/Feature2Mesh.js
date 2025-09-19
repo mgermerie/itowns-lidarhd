@@ -3,7 +3,7 @@ import Earcut from 'earcut';
 import { FEATURE_TYPES } from 'Core/Feature';
 import ReferLayerProperties from 'Layer/ReferencingLayerProperties';
 import { deprecatedFeature2MeshOptions } from 'Core/Deprecated/Undeprecator';
-import { Extent, Coordinates, OrientationUtils } from '@itowns/geographic';
+import { Extent, Coordinates, OrientationUtils } from '@itowns-lidarhd/geographic';
 import Style, { StyleContext } from 'Core/Style';
 
 const coord = new Coordinates('EPSG:4326', 0, 0, 0);

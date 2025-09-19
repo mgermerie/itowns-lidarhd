@@ -1,5 +1,5 @@
 import { FEATURE_TYPES } from 'Core/Feature';
-import { Coordinates } from '@itowns/geographic';
+import { Coordinates } from '@itowns-lidarhd/geographic';
 
 function pointIsOverLine(point, linePoints, epsilon, offset, count, size) {
     const x0 = point.x;

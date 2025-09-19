@@ -3,7 +3,7 @@ import GeometryLayer from 'Layer/GeometryLayer';
 import OrientedImageMaterial from 'Renderer/OrientedImageMaterial';
 import GeoJsonParser from 'Parser/GeoJsonParser';
 import CameraCalibrationParser from 'Parser/CameraCalibrationParser';
-import { Coordinates, OrientationUtils } from '@itowns/geographic';
+import { Coordinates, OrientationUtils } from '@itowns-lidarhd/geographic';
 
 const coord = new Coordinates('EPSG:4978', 0, 0, 0);
 const commandCancellation = cmd => cmd.requester.id !== cmd.layer.currentPano.id;

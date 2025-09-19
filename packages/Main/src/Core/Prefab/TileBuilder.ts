@@ -3,8 +3,8 @@ import { TileGeometry } from 'Core/TileGeometry';
 import { LRUCache } from 'lru-cache';
 import { computeBuffers } from 'Core/Prefab/computeBufferTileGeometry';
 import OBB from 'Renderer/OBB';
-import type { Extent } from '@itowns/geographic';
-import { Coordinates } from '@itowns/geographic';
+import type { Extent } from '@itowns-lidarhd/geographic';
+import { Coordinates } from '@itowns-lidarhd/geographic';
 
 const cacheBuffer = new Map<string, {
     index: THREE.BufferAttribute,

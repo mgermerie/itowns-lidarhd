@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import assert from 'assert';
-import { Extent, CRS } from '@itowns/geographic';
+import { Extent, CRS } from '@itowns-lidarhd/geographic';
 import { PlanarTileBuilder } from 'Core/Prefab/Planar/PlanarTileBuilder';
 import { GlobeTileBuilder } from 'Core/Prefab/Globe/GlobeTileBuilder';
 import { newTileGeometry } from 'Core/Prefab/TileBuilder';

@@ -1,7 +1,7 @@
 import assert from 'assert';
 import OrientedImageLayer from 'Layer/OrientedImageLayer';
 import OrientedImageSource from 'Source/OrientedImageSource';
-import { Coordinates, CRS } from '@itowns/geographic';
+import { Coordinates, CRS } from '@itowns-lidarhd/geographic';
 import GlobeView from 'Core/Prefab/GlobeView';
 import sinon from 'sinon';
 import Fetcher from 'Provider/Fetcher';

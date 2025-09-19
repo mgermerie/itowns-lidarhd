@@ -4,7 +4,7 @@ import { VectorTile } from '@mapbox/vector-tile';
 import { FeatureCollection, FEATURE_TYPES } from 'Core/Feature';
 import { globalExtentTMS } from 'Core/Tile/TileGrid';
 import { deprecatedParsingOptionsToNewOne } from 'Core/Deprecated/Undeprecator';
-import { Coordinates } from '@itowns/geographic';
+import { Coordinates } from '@itowns-lidarhd/geographic';
 
 const worldDimension3857 = globalExtentTMS.get('EPSG:3857').planarDimensions();
 const globalExtent = new Vector3(worldDimension3857.x, worldDimension3857.y, 1);

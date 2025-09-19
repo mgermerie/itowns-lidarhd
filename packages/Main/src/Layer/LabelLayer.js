@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import LayerUpdateState from 'Layer/LayerUpdateState';
 import ObjectRemovalHelper from 'Process/ObjectRemovalHelper';
 import GeometryLayer from 'Layer/GeometryLayer';
-import { Coordinates, Extent } from '@itowns/geographic';
+import { Coordinates, Extent } from '@itowns-lidarhd/geographic';
 import Label from 'Core/Label';
 import { readExpression, StyleContext } from 'Core/Style';
 import { ScreenGrid } from 'Renderer/Label2DRenderer';

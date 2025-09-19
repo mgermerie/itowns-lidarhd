@@ -12,12 +12,12 @@ The geographic package provides utilities for handling coordinates, ellipsoids, 
 
 # Install
 
-`npm install --save @itowns/geographic`
+`npm install --save @itowns-lidarhd/geographic`
 
 # Getting started
 
 ```js
-import { Coordinates, Extent, CRS } from '@itowns/geographic';
+import { Coordinates, Extent, CRS } from '@itowns-lidarhd/geographic';
 
 const coordinates = new Coordinates('EPSG:4326', 88.002445, 50.336522, 120.32201);
 const extent = new Extent('EPSG:4326', 88.002445, 50.336522, 22.021, 50.302548);

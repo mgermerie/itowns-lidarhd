@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { Extent } from '@itowns/geographic';
+import { Extent } from '@itowns-lidarhd/geographic';
 import GeoidGrid from 'Core/Geographic/GeoidGrid';
 
 export const BYTES_PER_DOUBLE = 8;

@@ -92,7 +92,7 @@ const navigation = new Navigation(view, {
 ```
 
 iTowns is currently moving to a monorepo organization and to a segmentation in sub-modules, allowing to import only some of itowns functionalities. Current itowns sub-modules are:
-- [@itowns/geographic](packages/Geographic/README.md): `npm install --save @itowns/geographic`
+- [@itowns-lidarhd/geographic](packages/Geographic/README.md): `npm install --save @itowns-lidarhd/geographic`
 
 This package contains the ES5-compatible sources of iTowns, up to date with the latest release.
 

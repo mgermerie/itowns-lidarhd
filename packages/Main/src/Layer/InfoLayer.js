@@ -1,4 +1,4 @@
-import { Extent } from '@itowns/geographic';
+import { Extent } from '@itowns-lidarhd/geographic';
 
 export default class InfoLayer {
     constructor(layer) {

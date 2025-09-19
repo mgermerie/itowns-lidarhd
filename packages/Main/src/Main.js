@@ -5,7 +5,7 @@ const conf = {
 export const REVISION = conf.version;
 
 // Geographic tools
-export { Coordinates, Extent, CRS, Ellipsoid, ellipsoidSizes, OrientationUtils } from '@itowns/geographic';
+export { Coordinates, Extent, CRS, Ellipsoid, ellipsoidSizes, OrientationUtils } from '@itowns-lidarhd/geographic';
 export { default as GeoidGrid } from 'Core/Geographic/GeoidGrid';
 
 export { default as GlobeView, GLOBE_VIEW_EVENTS } from 'Core/Prefab/GlobeView';

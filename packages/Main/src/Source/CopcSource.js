@@ -1,6 +1,6 @@
 import proj4 from 'proj4';
 import { Binary, Info, Las } from 'copc';
-import { Extent } from '@itowns/geographic';
+import { Extent } from '@itowns-lidarhd/geographic';
 import Fetcher from 'Provider/Fetcher';
 import LASParser from 'Parser/LASParser';
 import Source from 'Source/Source';

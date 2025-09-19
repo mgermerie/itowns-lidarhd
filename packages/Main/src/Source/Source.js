@@ -1,4 +1,4 @@
-import { Extent, CRS } from '@itowns/geographic';
+import { Extent, CRS } from '@itowns-lidarhd/geographic';
 import GeoJsonParser from 'Parser/GeoJsonParser';
 import KMLParser from 'Parser/KMLParser';
 import GDFParser from 'Parser/GDFParser';

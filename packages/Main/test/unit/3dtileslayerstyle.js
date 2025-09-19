@@ -1,6 +1,6 @@
 import assert from 'assert';
 import * as THREE from 'three';
-import { Extent, CRS } from '@itowns/geographic';
+import { Extent, CRS } from '@itowns-lidarhd/geographic';
 import PlanarView from 'Core/Prefab/PlanarView';
 import C3DTBatchTable from 'Core/3DTiles/C3DTBatchTable';
 import C3DTilesSource from 'Source/C3DTilesSource';

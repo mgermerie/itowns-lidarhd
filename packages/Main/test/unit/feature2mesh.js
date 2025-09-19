@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { CRS } from '@itowns/geographic';
+import { CRS } from '@itowns-lidarhd/geographic';
 import assert from 'assert';
 import GeoJsonParser from 'Parser/GeoJsonParser';
 import Feature2Mesh from 'Converter/Feature2Mesh';

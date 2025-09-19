@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { FEATURE_TYPES } from 'Core/Feature';
-import { Extent, Coordinates } from '@itowns/geographic';
+import { Extent, Coordinates } from '@itowns-lidarhd/geographic';
 import Style, { StyleContext } from 'Core/Style';
 
 const defaultStyle = new Style();

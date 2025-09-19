@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { TileGeometry } from 'Core/TileGeometry';
 import { GlobeTileBuilder } from 'Core/Prefab/Globe/GlobeTileBuilder';
-import { CRS, Coordinates } from '@itowns/geographic';
+import { CRS, Coordinates } from '@itowns-lidarhd/geographic';
 
 // get oriented bounding box of tile
 const builder = new GlobeTileBuilder({ uvCount: 1 });

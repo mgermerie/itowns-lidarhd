@@ -1,7 +1,7 @@
 /* eslint-disable no-template-curly-in-string */
 import assert from 'assert';
 import URLBuilder from 'Provider/URLBuilder';
-import { Extent } from '@itowns/geographic';
+import { Extent } from '@itowns-lidarhd/geographic';
 import Tile from 'Core/Tile/Tile';
 
 describe('URL creations', function () {

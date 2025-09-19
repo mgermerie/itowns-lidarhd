@@ -4,7 +4,7 @@ import assert from 'assert';
 import GeoidLayer from 'Layer/GeoidLayer';
 import FileSource from 'Source/FileSource';
 import Fetcher from 'Provider/Fetcher';
-import { Coordinates, Extent } from '@itowns/geographic';
+import { Coordinates, Extent } from '@itowns-lidarhd/geographic';
 import GlobeView from 'Core/Prefab/GlobeView';
 import OBB from 'Renderer/OBB';
 import TileMesh from 'Core/TileMesh';

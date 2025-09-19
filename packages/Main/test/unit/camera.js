@@ -1,6 +1,6 @@
 import assert from 'assert';
 import Camera, { CAMERA_TYPE } from 'Renderer/Camera';
-import { Coordinates } from '@itowns/geographic';
+import { Coordinates } from '@itowns-lidarhd/geographic';
 import { compareWithEpsilon } from './utils';
 
 describe('camera', function () {

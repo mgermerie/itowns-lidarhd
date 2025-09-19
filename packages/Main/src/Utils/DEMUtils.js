@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { Coordinates } from '@itowns/geographic';
+import { Coordinates } from '@itowns-lidarhd/geographic';
 import placeObjectOnGround from 'Utils/placeObjectOnGround';
 
 const FAST_READ_Z = 0;

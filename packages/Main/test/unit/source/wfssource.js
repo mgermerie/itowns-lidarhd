@@ -1,7 +1,7 @@
 import assert from 'assert';
 import WFSSource from 'Source/WFSSource';
 
-import { Extent } from '@itowns/geographic';
+import { Extent } from '@itowns-lidarhd/geographic';
 import Tile from 'Core/Tile/Tile';
 
 describe('WFSSource', function () {

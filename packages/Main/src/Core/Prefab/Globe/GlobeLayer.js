@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import TiledGeometryLayer from 'Layer/TiledGeometryLayer';
-import { ellipsoidSizes } from '@itowns/geographic';
+import { ellipsoidSizes } from '@itowns-lidarhd/geographic';
 import { globalExtentTMS, schemeTiles } from 'Core/Tile/TileGrid';
 import { GlobeTileBuilder } from 'Core/Prefab/Globe/GlobeTileBuilder';
 

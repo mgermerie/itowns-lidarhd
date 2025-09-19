@@ -1,7 +1,7 @@
 import LayerUpdateState from 'Layer/LayerUpdateState';
 import ObjectRemovalHelper from 'Process/ObjectRemovalHelper';
 import handlingError from 'Process/handlerNodeError';
-import { Coordinates } from '@itowns/geographic';
+import { Coordinates } from '@itowns-lidarhd/geographic';
 import { geoidLayerIsVisible } from 'Layer/GeoidLayer';
 
 const coord = new Coordinates('EPSG:4326', 0, 0, 0);

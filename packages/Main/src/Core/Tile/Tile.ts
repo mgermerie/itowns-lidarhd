@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { Coordinates, CRS, Extent } from '@itowns/geographic';
+import { Coordinates, CRS, Extent } from '@itowns-lidarhd/geographic';
 import { getInfoTms, getCountTiles } from './TileGrid';
 
 const _tmsCoord = new THREE.Vector2();

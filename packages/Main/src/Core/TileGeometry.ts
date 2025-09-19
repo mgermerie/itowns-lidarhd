@@ -4,7 +4,7 @@ import { computeBuffers, getBufferIndexSize }
     from 'Core/Prefab/computeBufferTileGeometry';
 import { GpuBufferAttributes, TileBuilder, TileBuilderParams }
     from 'Core/Prefab/TileBuilder';
-import { Coordinates, Extent } from '@itowns/geographic';
+import { Coordinates, Extent } from '@itowns-lidarhd/geographic';
 import { LRUCache } from 'lru-cache';
 
 import OBB from 'Renderer/OBB';

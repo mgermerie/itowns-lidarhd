@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { Coordinates, Extent } from '@itowns/geographic';
+import { Coordinates, Extent } from '@itowns-lidarhd/geographic';
 import {
     ShareableExtent,
     TileBuilder,

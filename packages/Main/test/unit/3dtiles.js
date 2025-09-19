@@ -1,7 +1,7 @@
 import assert from 'assert';
 import { Matrix4, Object3D, Sphere } from 'three';
 import Camera from 'Renderer/Camera';
-import { Coordinates, CRS } from '@itowns/geographic';
+import { Coordinates, CRS } from '@itowns-lidarhd/geographic';
 import { computeNodeSSE } from 'Process/3dTilesProcessing';
 import { configureTile } from 'Provider/3dTilesProvider';
 import C3DTileset from '../../src/Core/3DTiles/C3DTileset';

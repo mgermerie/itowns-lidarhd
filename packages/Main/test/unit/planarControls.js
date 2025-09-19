@@ -2,7 +2,7 @@ import assert from 'assert';
 import * as THREE from 'three';
 import PlanarView from 'Core/Prefab/PlanarView';
 import { CAMERA_TYPE } from 'Renderer/Camera';
-import { Extent } from '@itowns/geographic';
+import { Extent } from '@itowns-lidarhd/geographic';
 import { keys, STATE } from 'Controls/PlanarControls';
 import Renderer from './bootstrap';
 

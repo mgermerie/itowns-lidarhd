@@ -4,7 +4,7 @@ import WebXR from 'Renderer/WebXR';
 import DEMUtils from 'Utils/DEMUtils';
 import VRControls from 'Controls/VRControls';
 
-import { Coordinates } from '@itowns/geographic';
+import { Coordinates } from '@itowns-lidarhd/geographic';
 import * as THREE from 'three';
 import Renderer from './bootstrap';
 

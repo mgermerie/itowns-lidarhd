@@ -1,6 +1,6 @@
 import assert from 'assert';
 import Feature, { FeatureCollection, FEATURE_TYPES } from 'Core/Feature';
-import { Coordinates } from '@itowns/geographic';
+import { Coordinates } from '@itowns-lidarhd/geographic';
 
 describe('Feature', function () {
     const options_A = {

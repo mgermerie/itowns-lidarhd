@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import assert from 'assert';
-import { Coordinates, Ellipsoid, Extent, CRS } from '@itowns/geographic';
+import { Coordinates, Ellipsoid, Extent, CRS } from '@itowns-lidarhd/geographic';
 import CameraUtils from 'Utils/CameraUtils';
 import DEMUtils from 'Utils/DEMUtils';
 import Camera, { CAMERA_TYPE } from 'Renderer/Camera';

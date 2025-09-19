@@ -1,7 +1,7 @@
 import { MOUSE } from 'three';
 import assert from 'assert';
 import GlobeView from 'Core/Prefab/GlobeView';
-import { Coordinates } from '@itowns/geographic';
+import { Coordinates } from '@itowns-lidarhd/geographic';
 import { getLookAtFromMath, getRig } from 'Utils/CameraUtils';
 import StateControl from 'Controls/StateControl';
 import Renderer from './bootstrap';

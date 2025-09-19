@@ -1,6 +1,6 @@
 import { MOUSE } from 'three';
 import assert from 'assert';
-import { Coordinates } from '@itowns/geographic';
+import { Coordinates } from '@itowns-lidarhd/geographic';
 import GlobeView from 'Core/Prefab/GlobeView';
 import Renderer from './bootstrap';
 

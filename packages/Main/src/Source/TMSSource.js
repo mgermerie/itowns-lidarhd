@@ -1,6 +1,6 @@
 import Source from 'Source/Source';
 import URLBuilder from 'Provider/URLBuilder';
-import { Extent } from '@itowns/geographic';
+import { Extent } from '@itowns-lidarhd/geographic';
 import { globalExtentTMS } from 'Core/Tile/TileGrid';
 import Tile from 'Core/Tile/Tile';
 

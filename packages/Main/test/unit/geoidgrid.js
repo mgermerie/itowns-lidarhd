@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { Coordinates, Extent } from '@itowns/geographic';
+import { Coordinates, Extent } from '@itowns-lidarhd/geographic';
 import GeoidGrid from 'Core/Geographic/GeoidGrid';
 
 describe('GeoidGrid', function () {

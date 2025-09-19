@@ -3,7 +3,7 @@ import assert from 'assert';
 import { updateLayeredMaterialNodeImagery, updateLayeredMaterialNodeElevation } from 'Process/LayeredMaterialNodeProcessing';
 import FeatureProcessing from 'Process/FeatureProcessing';
 import TileMesh from 'Core/TileMesh';
-import { Extent } from '@itowns/geographic';
+import { Extent } from '@itowns-lidarhd/geographic';
 import { globalExtentTMS } from 'Core/Tile/TileGrid';
 import OBB from 'Renderer/OBB';
 import DataSourceProvider from 'Provider/DataSourceProvider';

@@ -3,7 +3,7 @@ import assert from 'assert';
 import GlobeView from 'Core/Prefab/GlobeView';
 import FeatureGeometryLayer from 'Layer/FeatureGeometryLayer';
 import FileSource from 'Source/FileSource';
-import { Extent, Coordinates } from '@itowns/geographic';
+import { Extent, Coordinates } from '@itowns-lidarhd/geographic';
 import OBB from 'Renderer/OBB';
 import TileMesh from 'Core/TileMesh';
 import { LayeredMaterial } from 'Renderer/LayeredMaterial';

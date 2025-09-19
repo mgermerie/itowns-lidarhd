@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import assert from 'assert';
 import GlobeView from 'Core/Prefab/GlobeView';
 import ObjectRemovalHelper from 'Process/ObjectRemovalHelper';
-import { Coordinates, Extent } from '@itowns/geographic';
+import { Coordinates, Extent } from '@itowns-lidarhd/geographic';
 import Renderer from './bootstrap';
 import CameraUtils from '../../src/Utils/CameraUtils';
 import OBB from '../../src/Renderer/OBB';

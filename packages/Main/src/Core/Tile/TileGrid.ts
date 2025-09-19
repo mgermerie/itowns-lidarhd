@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { Extent } from '@itowns/geographic';
+import { Extent } from '@itowns-lidarhd/geographic';
 
 const _countTiles = new THREE.Vector2();
 const _dim = new THREE.Vector2();

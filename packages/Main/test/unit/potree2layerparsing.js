@@ -1,7 +1,7 @@
 import assert from 'assert';
 import Potree2Layer from 'Layer/Potree2Layer';
 import Potree2Source from 'Source/Potree2Source';
-import { Coordinates } from '@itowns/geographic';
+import { Coordinates } from '@itowns-lidarhd/geographic';
 import GlobeView from 'Core/Prefab/GlobeView';
 import View from 'Core/View';
 import { HttpsProxyAgent } from 'https-proxy-agent';

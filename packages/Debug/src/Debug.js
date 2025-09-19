@@ -1,5 +1,5 @@
 import { CameraHelper, Color, Vector3 } from 'three';
-import { Coordinates } from '@itowns/geographic';
+import { Coordinates } from '@itowns-lidarhd/geographic';
 import { MAIN_LOOP_EVENTS, OBB } from 'itowns';
 import * as THREE from 'three';
 import ThreeStatsChart from './charts/ThreeStatsChart';
