@@ -11,51 +11,8 @@ on:
 
 jobs:
 
-  # Build bundle, doc and check linter
-  build:
-    name: Build bundle, check Linter and generate documentation
-    runs-on: ubuntu-latest
-    steps:
-
-      # Use specific Node.js version
-      - uses: actions/checkout@v4
-      - name: Use Node.js 22.x
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22.17
-          cache: 'npm'
-
-      # Install packages
-      - name: Install packages
-        run: npm ci
-
-      # Prepare before build
-      - name: Prepare
-        run: npm run prepare
-
-      # Check linter
-      - name: Linter
-        run: npm run lint -- --max-warnings=0
-
-      # Build bundle
-      - name: Build bundle
-        if: ${{ success() }}
-        run: npm run build
-
-      # Prepare archive for deploying
-      - name: Archive production artifacts
-        if: ${{ success() }}
-        uses: actions/upload-artifact@v4
-        with:
-            name: dist-itowns
-            path: |
-                dist/**/*.js
-                examples
-
-
   # Publish NPM package
   publish:
-    needs: [build]
     name: Publish NPM package
     if: ${{ github.ref == 'refs/heads/master' }}
     runs-on: ubuntu-latest
