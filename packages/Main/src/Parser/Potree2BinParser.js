@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { spawn, Thread, Transfer } from 'threads';
+import proj4 from 'proj4';
 
 let _thread;
 
@@ -57,7 +58,22 @@ export default {
 
         const potreeLoader = await loader();
         const decode = decoder(potreeLoader, metadata);
+
+        const origin = options.out.origin;
+        const quaternion = options.out.rotation;
         const data = await decode(Transfer(buffer), {
+            test: {
+                in: {
+                    crs: options.in.source.crs,
+                    projDefs: proj4.defs(options.in.source.crs),
+                },
+                out: {
+                    crs: options.out.crs,
+                    projDefs: proj4.defs(options.out.crs),
+                    origin: origin.toArray(),
+                    rotation: quaternion.toArray(),
+                },
+            },
             pointAttributes,
             scale,
             min,
@@ -97,8 +113,8 @@ export default {
             }
         });
 
-        geometry.userData.origin = options.out.origin;
-        geometry.userData.rotation = new THREE.Quaternion();
+        geometry.userData.origin = origin;
+        geometry.userData.rotation = quaternion;
 
         geometry.computeBoundingBox();
 

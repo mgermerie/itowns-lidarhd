@@ -37,6 +37,7 @@ class PotreeNode extends PointCloudNode {
     }
 
     createChildAABB(childNode, childIndex) {
+        childNode.voxelOBB.copy(this.voxelOBB);
         const voxelBBox = this.voxelOBB.box3D;
         const childVoxelBBox = childNode.voxelOBB.box3D;
 
@@ -99,12 +100,13 @@ class PotreeNode extends PointCloudNode {
         return super.load();
     }
 
-    getCenter() {
-        // With the potree format the node data are already encoded using the min corner of the bbox as origin.
-        // Linked with the reprojection of points, we might need to change that to the real center but it
-        // would need to make changes in the parser.
-        return this.voxelOBB.box3D.min;
-    }
+    // See if to keep for Potree1
+    // getCenter() {
+    //     // With the potree format the node data are already encoded using the min corner of the bbox as origin.
+    //     // Linked with the reprojection of points, we might need to change that to the real center but it
+    //     // would need to make changes in the parser.
+    //     return this.voxelOBB.box3D.min;
+    // }
 
     loadOctree() {
         const octreeUrl = `${this.baseurl}/${this.hierarchyKey}.${this.layer.source.extensionOctree}`;
