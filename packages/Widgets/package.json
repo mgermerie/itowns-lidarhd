@@ -1,6 +1,5 @@
 {
-  "private": true,
-  "name": "@itowns/widgets",
+  "name": "@itowns-lidarhd/widgets",
   "version": "2.45.1",
   "description": "Widgets",
   "type": "module",
