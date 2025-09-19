@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import TWEEN from '@tweenjs/tween.js';
-import { MAIN_LOOP_EVENTS, GeometryLayer, ObjectRemovalHelper } from 'itowns';
+import { MAIN_LOOP_EVENTS, GeometryLayer, ObjectRemovalHelper } from 'itowns-lidarhd';
 import TileObjectChart from './charts/TileObjectChart';
 import TileVisibilityChart from './charts/TileVisibilityChart';
 import GeometryDebug from './GeometryDebug';

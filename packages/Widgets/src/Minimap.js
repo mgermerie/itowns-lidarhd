@@ -1,5 +1,5 @@
 import { Coordinates } from '@itowns-lidarhd/geographic';
-import { MAIN_LOOP_EVENTS, PlanarView, CAMERA_TYPE } from 'itowns';
+import { MAIN_LOOP_EVENTS, PlanarView, CAMERA_TYPE } from 'itowns-lidarhd';
 import Widget from './Widget';
 
 

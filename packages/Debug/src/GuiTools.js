@@ -1,4 +1,4 @@
-import * as itowns from 'itowns';
+import * as itowns from 'itowns-lidarhd';
 import * as dat from 'dat.gui';
 
 dat.GUI.prototype.removeFolder = function removeFolder(name) {

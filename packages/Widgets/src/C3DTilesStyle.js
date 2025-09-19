@@ -1,4 +1,4 @@
-import { C3DTILES_LAYER_EVENTS } from 'itowns';
+import { C3DTILES_LAYER_EVENTS } from 'itowns-lidarhd';
 import Widget from './Widget';
 
 const DEFAULT_OPTIONS = {
