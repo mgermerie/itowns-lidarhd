@@ -34,7 +34,7 @@
     "version": "node ./config/version.mjs",
     "prerelease-next": "npm version prerelease --preid next",
     "publish-next": "npm run prerelease-next && npm run prepublishOnly && npm run publish-next --workspaces --if-present",
-    "publish-latest": "npm run prepublishOnly && npm run publish-latest --workspaces --if-present"
+    "publish-latest": "npm run prepublishOnly && npm run publish-latest --workspaces --if-present -- --provenance=false"
   },
   "c8": {
     "exclude": [
