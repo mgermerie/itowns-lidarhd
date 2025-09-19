@@ -1,6 +1,6 @@
 {
   "name": "itowns-lidarhd",
-  "version": "2.45.1",
+  "version": "2.45.2",
   "description": "A JS/WebGL framework for 3D geospatial data visualization",
   "type": "module",
   "main": "lib/Main.js",
@@ -24,7 +24,7 @@
     "postpublish": "node clean.cjs",
     "publish-latest": "npm publish --access public --tag=latest --provenance",
     "publish-next": "npm publish --access public --tag=next --provenance",
-    "version": "cross-env-shell npm install @itowns/geographic@$npm_package_version && node scripts/version.mjs"
+    "version": "cross-env-shell npm install @itowns-lidarhd/geographic@$npm_package_version && node scripts/version.mjs"
   },
   "c8": {
     "exclude": [
@@ -50,7 +50,7 @@
     "url": "https://github.com/iTowns/itowns/issues"
   },
   "dependencies": {
-    "@itowns/geographic": "^2.45.1",
+    "@itowns-lidarhd/geographic": "^2.45.1",
     "@mapbox/vector-tile": "^2.0.3",
     "@maplibre/maplibre-gl-style-spec": "^23.1.0",
     "@tmcw/togeojson": "^7.0.0",

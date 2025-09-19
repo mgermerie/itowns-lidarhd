@@ -13,7 +13,7 @@
     "transpileOnly": "cross-env BABEL_DISABLE_CACHE=1 babel src --out-dir lib --extensions .js,.ts",
     "transpile": "npm run transpileOnly && npm run copy_transpile",
     "watch": "npm run transpileOnly -- --watch",
-    "version": "cross-env-shell npm install @itowns/geographic@$npm_package_version itowns@$npm_package_version"
+    "version": "cross-env-shell npm install @itowns-lidarhd/geographic@$npm_package_version itowns-lidarhd@$npm_package_version"
   },
   "files": [
     "*.md",
@@ -30,7 +30,7 @@
   },
   "homepage": "https://itowns.github.io/",
   "dependencies": {
-    "@itowns/geographic": "^2.45.1",
-    "itowns": "^2.45.1"
+    "@itowns-lidarhd/geographic": "^2.45.1",
+    "itowns-lidarhd": "^2.45.1"
   }
 }
