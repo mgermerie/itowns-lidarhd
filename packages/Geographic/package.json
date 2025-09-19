@@ -1,6 +1,6 @@
 {
   "name": "@itowns-lidarhd/geographic",
-  "version": "2.45.8",
+  "version": "2.45.9",
   "description": "Geodesy",
   "type": "module",
   "main": "lib/Main.js",
