@@ -97,16 +97,18 @@ class PotreeNode extends PointCloudNode {
         if (!this.octreeIsLoaded) {
             this.loadOctree();
         }
-        return super.load();
+        // to refacto : can we use node instead of layer in options.out ?
+        const rotation = this.getLocalRotation();
+        return this.layer.source.fetcher(this.url, this.layer.source.networkOptions)
+            .then(file => this.layer.source.parse(file, {
+                in: this.layer.source,
+                out: {
+                    ...this,
+                    origin: this.origin,
+                    rotation,
+                },
+            }));
     }
-
-    // See if to keep for Potree1
-    // getCenter() {
-    //     // With the potree format the node data are already encoded using the min corner of the bbox as origin.
-    //     // Linked with the reprojection of points, we might need to change that to the real center but it
-    //     // would need to make changes in the parser.
-    //     return this.voxelOBB.box3D.min;
-    // }
 
     loadOctree() {
         const octreeUrl = `${this.baseurl}/${this.hierarchyKey}.${this.layer.source.extensionOctree}`;
