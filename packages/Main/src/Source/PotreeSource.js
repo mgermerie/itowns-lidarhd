@@ -89,6 +89,7 @@ class PotreeSource extends Source {
                 this.baseurl = `${this.url}/${cloud.octreeDir}/r`;
                 this.extension = cloud.pointAttributes === 'CIN' ? 'cin' : 'bin';
                 this.parse = this.extension === 'cin' ? PotreeCinParser.parse : PotreeBinParser.parse;
+                this.scale = cloud.scale;
 
                 return cloud;
             });

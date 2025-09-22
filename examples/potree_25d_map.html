@@ -65,8 +65,9 @@
                 var view;
                 var controls;
 
-                // Define crs projection that we will use (taken from https://epsg.io/3946, Proj4js section)
-                itowns.CRS.defs('EPSG:3946', '+proj=lcc +lat_1=45.25 +lat_2=46.75 +lat_0=46 +lon_0=3 +x_0=1700000 +y_0=5200000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs');
+                const url = 'https://viz.lib.vt.edu/thessaloniki/resources/pointclouds/thessaloniki';
+                const file = 'cloud.js';
+                const crs = 'EPSG:4326';
 
                 viewerDiv = document.getElementById('viewerDiv');
                 viewerDiv.style.display = 'block';
@@ -74,17 +75,9 @@
                 debugGui = new lil();
 
                 // TODO: do we really need to disable logarithmicDepthBuffer ?
-                view = new itowns.View('EPSG:3946', viewerDiv);
+                view = new itowns.View(crs, viewerDiv);
                 setupLoadingScreen(viewerDiv, view);
                 view.mainLoop.gfxEngine.renderer.setClearColor(0xcccccc);
-
-                const url = 'https://raw.githubusercontent.com/iTowns/iTowns2-sample-data/master/pointclouds/eglise_saint_blaise_arles';
-                const file = 'eglise_saint_blaise_arles.js';
-                const crs = 'EPSG:3946';
-
-                // const url = 'https://viz.lib.vt.edu/thessaloniki/resources/pointclouds/thessaloniki';
-                // const file = 'cloud.js';
-                // const crs = 'EPSG:4326';
 
                 // Configure Point Cloud layer
                 const potreeSource = new itowns.PotreeSource({
@@ -92,8 +85,6 @@
                     url,
                     crs,
                 });
-
-
 
                 potreeLayer = new itowns.PotreeLayer('eglise_saint_blaise_arles', {
                     source: potreeSource,

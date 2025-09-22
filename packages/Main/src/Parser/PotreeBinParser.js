@@ -80,6 +80,11 @@ export default {
 
         const view = new DataView(buffer);
         // Format: X1,Y1,Z1,R1,G1,B1,A1,[...],XN,YN,ZN,RN,GN,BN,AN
+
+        const scale = options.in.scale;
+        const offset = options.out.voxelOBB.box3D.min.toArray();
+        const origin = options.out.origin.toArray();
+
         let pointByteSize = 0;
         for (const potreeName of options.in.pointAttributes) {
             pointByteSize += POINT_ATTRIBUTES[potreeName].byteSize;
@@ -89,23 +94,29 @@ export default {
         const geometry = new THREE.BufferGeometry();
         let elemOffset = 0;
         let attrOffset = 0;
+
         for (const potreeName of options.in.pointAttributes) {
             const attr = POINT_ATTRIBUTES[potreeName];
             const arrayLength = attr.numElements * numPoints;
             const array = new attr.arrayType(arrayLength);
             for (let arrayOffset = 0; arrayOffset < arrayLength; arrayOffset += attr.numElements) {
                 for (let elemIdx = 0; elemIdx < attr.numElements; elemIdx++) {
-                    array[arrayOffset + elemIdx] = attr.getValue(view, attrOffset + elemIdx * attr.numByte);
+                    array[arrayOffset + elemIdx] = attr.getValue(view, attrOffset + elemIdx * attr.numByte)
+                        * (attr.attributeName === 'position' ? scale : 1)
+                        + (attr.attributeName === 'position' ? offset[elemIdx] : 0)
+                        - (attr.attributeName === 'position' ? origin[elemIdx] : 0);
                 }
+
                 attrOffset += pointByteSize;
             }
             elemOffset += attr.byteSize;
             attrOffset = elemOffset;
+
             geometry.setAttribute(attr.attributeName, new THREE.BufferAttribute(array, attr.numElements, attr.normalized));
         }
 
         geometry.userData.origin = options.out.origin;
-        geometry.userData.rotation = new THREE.Quaternion();
+        geometry.userData.rotation = options.out.rotation;
 
         geometry.computeBoundingBox();
 
