@@ -122,8 +122,16 @@ class EntwinePointTileNode extends PointCloudNode {
             layerSource = this.layer.source.sources[this.sId];
         }
 
+        const rotation = this.getLocalRotation();
         return sourceFetcher(this.url, this.layer.source.networkOptions)
-            .then(file => sourceParse(file, { out: this.layer, in: layerSource }));
+            .then(file => sourceParse(file, {
+                in: layerSource,
+                out: {
+                    ...this.layer,
+                    origin: this.origin,
+                    rotation,
+                },
+            }));
     }
 
     findAndCreateChild(depth, x, y, z, hierarchy, stack) {
