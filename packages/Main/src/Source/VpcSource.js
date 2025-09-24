@@ -1,6 +1,7 @@
 import LASParser from 'Parser/LASParser';
 import Fetcher from 'Provider/Fetcher';
 import Source from 'Source/Source';
+import proj4 from 'proj4';
 import { CopcSource, EntwinePointTileSource } from 'Main';
 
 /**
@@ -42,7 +43,7 @@ class VpcSource extends Source {
             this.minElevation = Math.min(...boundsConformings.map(bC => bC[2]));
             this.maxElevation = Math.max(...boundsConformings.map(bC => bC[5]));
 
-            /* FOR ONE proj:wkt2
+            // /* FOR ONE proj:wkt2
             const projsWkt2 = meta.features.map(f => f.properties['proj:wkt2']);
             proj4.defs('unknown', projsWkt2[0]);
             let projCS;
@@ -58,7 +59,7 @@ class VpcSource extends Source {
             if (!(this.crs in proj4.defs)) {
                 proj4.defs(this.crs, projCS);
             }
-            */
+            // */
 
             this.sources = [];
             this.promises = [];

@@ -46,7 +46,7 @@
             var debugGui = new lil();
             var viewerDiv = document.getElementById('viewerDiv');
             viewerDiv.style.display = 'block';
-            var view = new itowns.View('EPSG:3946', viewerDiv);
+            var view = new itowns.View('EPSG:2154', viewerDiv);
             view.mainLoop.gfxEngine.renderer.setClearColor(0xcccccc);
 
             const controls = new itowns.PlanarControls(view);
@@ -54,18 +54,16 @@
             var vpcLayer, vpcSource;
 
             function onLayerReady() {
-                var lookAt = new THREE.Vector3();
+                var lookAt = vpcLayer.root.origin.toVector3();
+
                 var size = new THREE.Vector3();
-
-                const rootBbox = vpcLayer.roots[0].bbox;
-                rootBbox.getSize(size);
-                rootBbox.getCenter(lookAt);
-
+                vpcLayer.root.voxelOBB.box3D.getSize(size);
                 view.camera3D.far = 10.0 * size.length();
 
-                controls.groundLevel = rootBbox.min.z;
-                var position = rootBbox.min.clone().add(
-                    size.multiply({ x: 0, y: 0, z: size.x / size.z })
+                controls.groundLevel = vpcLayer.minElevationRange;
+                var corner = new THREE.Vector3(...vpcLayer.source.sources[0].boundsConforming.slice(0, 3));
+                var position = corner.clone().add(
+                    size.multiply({ x: 0, y: 0, z: (size.x / size.z) })
                 );
 
                 view.camera3D.position.copy(position);

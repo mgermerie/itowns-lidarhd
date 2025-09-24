@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import PointCloudNode from 'Core/PointCloudNode';
 import CopcNode from 'Core/CopcNode';
 import EntwinePointTileNode from 'Core/EntwinePointTileNode';
 import PointCloudLayer from 'Layer/PointCloudLayer';
@@ -10,29 +11,10 @@ const bboxMesh = new THREE.Mesh();
 const box3 = new THREE.Box3();
 bboxMesh.geometry.boundingBox = box3;
 
-function initBoundingBox(elt, layer) {
-    elt.tightbbox.getSize(box3.max);
-    box3.max.multiplyScalar(0.5);
-    box3.min.copy(box3.max).negate();
-    elt.obj.boxHelper = new THREE.BoxHelper(bboxMesh);
-    elt.obj.boxHelper.geometry = elt.obj.boxHelper.geometry.toNonIndexed();
-    elt.obj.boxHelper.computeLineDistances();
-    elt.obj.boxHelper.material = elt.childrenBitField ? new THREE.LineDashedMaterial({ dashSize: 0.25, gapSize: 0.25 }) : new THREE.LineBasicMaterial();
-    elt.obj.boxHelper.material.color.setHex(0);
-    elt.obj.boxHelper.material.linewidth = 2;
-    elt.obj.boxHelper.frustumCulled = false;
-    elt.obj.boxHelper.position.copy(elt.tightbbox.min).add(box3.max);
-    elt.obj.boxHelper.autoUpdateMatrix = false;
-    layer.bboxes.add(elt.obj.boxHelper);
-    elt.obj.boxHelper.updateMatrix();
-    elt.obj.boxHelper.updateMatrixWorld();
-}
-
-function computeSSEPerspective(context, pointSize, spacing, elt, distance) {
+function computeSSEPerspective(context, pointSize, pointSpacing, distance) {
     if (distance <= 0) {
         return Infinity;
     }
-    const pointSpacing = spacing / 2 ** elt.depth;
     // Estimate the onscreen distance between 2 points
     const onScreenSpacing = context.camera.preSSE * pointSpacing / distance;
     // [  P1  ]--------------[   P2   ]
@@ -42,9 +24,7 @@ function computeSSEPerspective(context, pointSize, spacing, elt, distance) {
     return Math.max(0.0, onScreenSpacing - pointSize);
 }
 
-function computeSSEOrthographic(context, pointSize, spacing, elt) {
-    const pointSpacing = spacing / 2 ** elt.depth;
-
+function computeSSEOrthographic(context, pointSize, pointSpacing) {
     // Given an identity view matrix, project pointSpacing from world space to
     // clip space. v' = vVP = vP
     const v = new THREE.Vector4(pointSpacing);
@@ -58,12 +38,12 @@ function computeSSEOrthographic(context, pointSize, spacing, elt) {
     return Math.max(0.0, distance - pointSize);
 }
 
-function computeScreenSpaceError(context, pointSize, spacing, elt, distance) {
+function computeScreenSpaceError(context, pointSize, pointSpacing, distance) {
     if (context.camera.camera3D.isOrthographicCamera) {
-        return computeSSEOrthographic(context, pointSize, spacing, elt);
+        return computeSSEOrthographic(context, pointSize, pointSpacing);
     }
 
-    return computeSSEPerspective(context, pointSize, spacing, elt, distance);
+    return computeSSEPerspective(context, pointSize, pointSpacing, distance);
 }
 
 function markForDeletion(elt) {
@@ -124,53 +104,67 @@ class VpcLayer extends PointCloudLayer {
         this.scale = new THREE.Vector3(1.0, 1.0, 1.0);
         this.offset = new THREE.Vector3(0.0, 0.0, 0.0);
 
-        const minElevationRanges = [];
-        const maxElevationRanges = [];
+        const zmins = [];
+        const zmaxs = [];
 
         // const resolve = this.addInitializationStep();
         const resolve = res => res;
 
         this.loadOctrees = [];
         this.whenReady = this.source.whenReady.then((/** @type {VpcSource} */ sources) => {
-            this.minElevationRange = this.minElevationRange ?? this.source.minElevation;
-            this.maxElevationRange = this.maxElevationRange ?? this.source.maxElevation;
-
             sources.forEach((source, i) => {
                 const boundsConforming = source.boundsConforming;
-                const bbox = new THREE.Box3().setFromArray(boundsConforming);
+
+                this.zmin = source.boundsConforming[2];
+                this.zmax = source.boundsConforming[5];
+                zmins.push(this.zmin);
+                zmaxs.push(this.zmax);
+
+                // const bbox = new THREE.Box3().setFromArray(boundsConforming);
+                this.root = new PointCloudNode(0, this);
+                this.setRootBbox(boundsConforming.slice(0, 3), boundsConforming.slice(3, 6));
                 const root = {
-                    bbox,
+                    voxelOBB: this.root.voxelOBB.clone(),
+                    clampOBB: this.root.clampOBB.clone(),
                     children: [],
                     sId: i,
                 };
+                root.voxelOBB.matrixWorldInverse = this.root.voxelOBB.matrixWorldInverse;
+                root.clampOBB.matrixWorldInverse = this.root.clampOBB.matrixWorldInverse;
+
                 const promise =
                     this.source.sources[i].whenReady.then((src) => {
                         if (this.source.sources[i].isCopcSource) {
-                            minElevationRanges.push(src.header.min[2]);
-                            maxElevationRanges.push(src.header.max[2]);
-
                             const { cube, rootHierarchyPage } = src.info;
                             const { pageOffset, pageLength } = rootHierarchyPage;
 
                             this.spacing.push(src.info.spacing);
 
                             const root = new CopcNode(0, 0, 0, 0, pageOffset, pageLength, this, -1, i);
-                            root.bbox.min.fromArray(cube, 0);
-                            root.bbox.max.fromArray(cube, 3);
+                            // root.bbox.min.fromArray(cube, 0);
+                            // root.bbox.max.fromArray(cube, 3);
+                            this.setRootBbox(cube.slice(0, 3), cube.slice(3, 6));
+                            root.voxelOBB = this.root.voxelOBB.clone();
+                            root.clampOBB = this.root.clampOBB.clone();
+                            root.voxelOBB.matrixWorldInverse = this.root.voxelOBB.matrixWorldInverse;
+                            root.clampOBB.matrixWorldInverse = this.root.clampOBB.matrixWorldInverse;
                             this.roots[i] = root;
 
                             return root.loadOctree().then(res => resolve(res));
                         } else {
-                            minElevationRanges.push(src.boundsConforming[2]);
-                            maxElevationRanges.push(src.boundsConforming[5]);
-
                             const spacing = (Math.abs(src.bounds[3] - src.bounds[0])
                                 + Math.abs(src.bounds[4] - src.bounds[1])) / (2 * src.span);
                             this.spacing.push(spacing);
 
                             const root = new EntwinePointTileNode(0, 0, 0, 0, this, -1, i);
-                            root.bbox.min.fromArray(src.boundsConforming, 0);
-                            root.bbox.max.fromArray(src.boundsConforming, 3);
+                            // root.bbox.min.fromArray(src.boundsConforming, 0);
+                            // root.bbox.max.fromArray(src.boundsConforming, 3);
+                            this.setRootBbox(src.bounds.slice(0, 3), src.bounds.slice(3, 6));
+                            root.voxelOBB = this.root.voxelOBB.clone();
+                            root.clampOBB = this.root.clampOBB.clone();
+                            root.voxelOBB.matrixWorldInverse = this.root.voxelOBB.matrixWorldInverse;
+                            root.clampOBB.matrixWorldInverse = this.root.clampOBB.matrixWorldInverse;
+
                             this.roots[i] = root;
 
                             return root.loadOctree().then(res => resolve(res));
@@ -181,6 +175,11 @@ class VpcLayer extends PointCloudLayer {
                 root.load = () => this.loadOctrees[i].then(res => res.load());
                 this.roots.push(root);
             });
+
+            this.zmin = Math.min(...zmins);
+            this.zmax = Math.max(...zmaxs);
+            this.setElevationRange();
+
             this.ready = true;
 
             return this.loadOctrees;
@@ -241,27 +240,17 @@ class VpcLayer extends PointCloudLayer {
     }
 
     // PointCloudLayer.update separate in 2 parts: update and subUpdate
-    subUpdate(elt, context, layer, bbox) {
+    subUpdate(elt, context, layer, bbox, matrixWorldInverse) {
         elt.notVisibleSince = undefined;
-        point.copy(context.camera.camera3D.position).sub(this.object3d.getWorldPosition(new THREE.Vector3()));
-        point.applyQuaternion(this.object3d.getWorldQuaternion(new THREE.Quaternion()).invert());
+
+        point.copy(context.camera.camera3D.position).applyMatrix4(matrixWorldInverse);
+        const distanceToCamera = bbox.distanceToPoint(point);
 
         if (elt.numPoints !== 0) {
             if (elt.obj) {
                 elt.obj.visible = true;
-
-                if (__DEBUG__) {
-                    if (this.bboxes.visible) {
-                        if (!elt.obj.boxHelper) {
-                            initBoundingBox(elt, layer);
-                        }
-                        elt.obj.boxHelper.visible = true;
-                        elt.obj.boxHelper.material.color.r = 1 - elt.sse;
-                        elt.obj.boxHelper.material.color.g = elt.sse;
-                    }
-                }
             } else if (!elt.promise) {
-                const distance = Math.max(0.001, bbox.distanceToPoint(point));
+                const distance = Math.max(0.001, distanceToCamera);
                 // Increase priority of nearest node
                 const priority = computeScreenSpaceError(context, layer.pointSize, layer.spacing[elt.sId], elt, distance) / distance;
                 elt.promise = context.scheduler.execute({
@@ -273,8 +262,6 @@ class VpcLayer extends PointCloudLayer {
                     earlyDropFunction: cmd => !cmd.requester.visible || !this.visible,
                 }).then((pts) => {
                     elt.obj = pts;
-                    // store tightbbox to avoid ping-pong (bbox = larger => visible, tight => invisible)
-                    elt.tightbbox = pts.tightbbox;
 
                     // make sure to add it here, otherwise it might never
                     // be added nor cleaned
@@ -291,8 +278,7 @@ class VpcLayer extends PointCloudLayer {
         }
 
         if (elt.children && elt.children.length) {
-            const distance = bbox.distanceToPoint(point);
-            elt.sse = computeScreenSpaceError(context, layer.pointSize, layer.spacing[elt.sId], elt, distance) / this.sseThreshold;
+            elt.sse = computeScreenSpaceError(context, layer.pointSize, 0.5 * layer.spacing[elt.sId], distanceToCamera) / this.sseThreshold;
             if (elt.sse >= 1) {
                 return elt.children;
             } else {
@@ -311,9 +297,24 @@ class VpcLayer extends PointCloudLayer {
             return [];
         }
 
-        // pick the best bounding box
-        const bbox = (elt.tightbbox ? elt.tightbbox : elt.bbox);
-        elt.visible = context.camera.isBox3Visible(bbox, this.object3d.matrixWorld);
+        // get object on which to measure distance
+        let bbox;
+        let matrixWorld;
+        let matrixWorldInverse;
+
+        if (elt.obj) {
+            const obj = elt.obj;
+            bbox = obj.geometry.boundingBox;
+            matrixWorld = obj.matrixWorld;
+            matrixWorldInverse = obj.matrixWorldInverse;
+        } else {
+            bbox = elt.clampOBB.box3D;
+            matrixWorld = elt.clampOBB.matrixWorld;
+            matrixWorldInverse = elt.clampOBB.matrixWorldInverse;
+        }
+
+        elt.visible = context.camera.isBox3Visible(bbox, matrixWorld);
+
         if (!elt.visible) {
             markForDeletion(elt);
             return [];
@@ -325,10 +326,10 @@ class VpcLayer extends PointCloudLayer {
                 .then(() => {
                     elt = this.roots[elt.sId];
                     elt.visible = true;
-                    return this.subUpdate(elt, context, layer, bbox);
+                    return this.subUpdate(elt, context, layer, bbox, matrixWorldInverse);
                 });
         } else {
-            return this.subUpdate(elt, context, layer, bbox);
+            return this.subUpdate(elt, context, layer, bbox, matrixWorldInverse);
         }
     }
 
