@@ -3,7 +3,7 @@ import GeometryLayer from 'Layer/GeometryLayer';
 import PointsMaterial, { PNTS_MODE } from 'Renderer/PointsMaterial';
 import Picking from 'Core/Picking';
 import proj4 from 'proj4';
-import { Coordinates, OrientationUtils } from '@itowns/geographic';
+import { Coordinates, OrientationUtils } from '@itowns-lidarhd/geographic';
 
 const point = new THREE.Vector3();
 const bboxMesh = new THREE.Mesh();
