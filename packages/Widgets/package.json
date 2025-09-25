@@ -1,6 +1,6 @@
 {
   "name": "@itowns-lidarhd/widgets",
-  "version": "2.45.9",
+  "version": "2.45.10",
   "description": "Widgets",
   "type": "module",
   "main": "lib/Main.js",
@@ -31,7 +31,7 @@
   },
   "homepage": "https://itowns.github.io/",
   "dependencies": {
-    "@itowns-lidarhd/geographic": "^2.45.9",
-    "itowns-lidarhd": "^2.45.9"
+    "@itowns-lidarhd/geographic": "^2.45.10",
+    "itowns-lidarhd": "^2.45.10"
   }
 }
